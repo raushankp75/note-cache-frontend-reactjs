@@ -1,14 +1,15 @@
 import React from 'react'
 import Header from '../components/header/Header'
 import Footer from '../components/footer/Footer'
+import { Box, Typography } from '@mui/material'
 
 const MainLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <main style={{ display: 'flex',  justifyContent: 'center', padding: '80px 4px', overflowX: 'hidden', minHeight:'78vh' }}>
+            <Box sx={{ display: 'flex', flexDirection:'column', padding:{xs:'70px 4px', lg:'80px 250px'}, overflowX: 'hidden', minHeight: '78vh', maxWidth:'100%' }}>
                 {children}
-            </main>
+            </Box>
             <Footer />
         </>
     )

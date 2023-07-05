@@ -1,6 +1,6 @@
-import { AppBar, Box, Button, FormControl, IconButton, Link, Menu, MenuItem, Stack, TextField, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, FormControl, IconButton, Menu, MenuItem, Stack, TextField, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
 
@@ -27,11 +27,11 @@ const Header = () => {
             }
         }}>
             <Toolbar sx={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-                <IconButton sx={{ fontSize:{xs:'20px', lg:'35px'} }} edge='start' color='inherit' aria-level='logo' >Note Cache</IconButton>
+                <IconButton sx={{ fontSize: { xs: '20px', lg: '35px' } }} edge='start' color='inherit' aria-level='logo' ><Link to='/' style={{ color: 'white', textDecoration: 'none', fontFamily: 'sans-serif' }} >Note Cache</Link></IconButton>
 
 
-                <Box sx={{ display: 'flex', gap:{xs:'20px', lg:'50px'}, justifyContent:'center', alignItems:'center' }}>
-                    <Link sx={{ color: 'white', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>My Notes</Link>
+                <Box sx={{ display: 'flex', gap: { xs: '20px', lg: '50px' }, justifyContent: 'center', alignItems: 'center' }}>
+                    <Link to='/mynotes' style={{ color: 'white', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
 
                     <Box>
                         <Typography
@@ -41,7 +41,7 @@ const Header = () => {
                             aria-control={open ? 'resources-menu' : undefined}
                             aria-haspopup='true'
                             aria-expanded={open ? 'true' : undefined}
-                            sx={{position:'relative', cursor:'pointer'}}
+                            sx={{ position: 'relative', cursor: 'pointer' }}
                         >
                             Raushan Kumar
                         </Typography>
@@ -55,10 +55,10 @@ const Header = () => {
                                 'aria-labelledby': 'resources-button'
                             }}
                             onClose={handleClose}
-                        sx={{ position:'absolute', top:'-78%', left:'70%' }}
+                            sx={{ position: 'absolute', top: '-78%', left: '70%' }}
                         >
-                            <MenuItem onClick={handleClose}> <Link sx={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Profile</Link> </MenuItem>
-                            <MenuItem onClick={handleClose}><Link sx={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Logout</Link></MenuItem>
+                            <MenuItem onClick={handleClose}> <Link to='/myprofile' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Profile</Link> </MenuItem>
+                            <MenuItem onClick={handleClose}><Link to='/' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Logout</Link></MenuItem>
                         </Menu>
                     </Box>
 

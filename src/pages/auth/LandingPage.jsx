@@ -1,5 +1,6 @@
-import { Box, Button, Link, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
     return (
@@ -10,8 +11,8 @@ const LandingPage = () => {
 
                 {/* login and signup button */}
                 <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:'30px' }}>
-                    <Button variant='contained' sx={{ padding:'10px 100px', backgroundColor:'green', color:'white', }}><Link sx={{ color: 'white', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Signup</Link></Button>
-                    <Link sx={{ fontSize:'18px', fontFamily:'sans-serif' }} href=''>Already have an account? Log In</Link> 
+                    <Button variant='contained' sx={{ padding:'10px 100px', backgroundColor:'green', color:'white', }}><Link to='/signup' style={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} >Signup</Link></Button>
+                    <Link to='/login' style={{ fontSize:'18px', fontFamily:'sans-serif' }} >Already have an account? Log In</Link> 
                 </Box>
             </Box>
         </Box>
