@@ -7,7 +7,7 @@ const MainLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <Box sx={{ display: 'flex', flexDirection:'column', padding:{xs:'70px 4px', lg:'80px 250px'}, overflowX: 'hidden', minHeight: '78vh', maxWidth:'100%' }}>
+            <Box sx={{ display: 'flex', flexDirection:'column', padding:{xs:'70px 4px', lg:'80px 250px'}, overflowX: 'hidden', minHeight: '72vh', maxWidth:'100%' }}>
                 {children}
             </Box>
             <Footer />
