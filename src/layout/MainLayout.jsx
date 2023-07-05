@@ -6,10 +6,10 @@ const MainLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <main style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '28px 4px', overflowX: 'hidden', minHeight:'80vh' }}>
+            <main style={{ display: 'flex',  justifyContent: 'center', padding: '80px 4px', overflowX: 'hidden', minHeight:'78vh' }}>
                 {children}
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

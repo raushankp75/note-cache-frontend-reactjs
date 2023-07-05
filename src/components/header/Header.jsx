@@ -18,20 +18,19 @@ const Header = () => {
 
     return (
         <AppBar sx={{
-            background: 'orange',
             padding: {
                 xs: '0px 5px', // 0 above
                 sm: '0px 5px', // 600 above
                 md: '0px 5px', // 900 above
-                lg: '0px 350px', // 1200 above
-                xl: '0px 350px' // 1536 above
+                lg: '0px 300px', // 1200 above
+                xl: '0px 300px' // 1536 above
             }
         }}>
             <Toolbar sx={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-                <IconButton size='large' edge='start' color='inherit' aria-level='logo' >Note Cache</IconButton>
+                <IconButton sx={{ fontSize:{xs:'20px', lg:'35px'} }} edge='start' color='inherit' aria-level='logo' >Note Cache</IconButton>
 
 
-                <Box sx={{ display: 'flex', gap: '50px' }}>
+                <Box sx={{ display: 'flex', gap:{xs:'20px', lg:'50px'}, justifyContent:'center', alignItems:'center' }}>
                     <Link sx={{ color: 'white', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>My Notes</Link>
 
                     <Box>
@@ -44,7 +43,7 @@ const Header = () => {
                             aria-expanded={open ? 'true' : undefined}
                             sx={{position:'relative', cursor:'pointer'}}
                         >
-                            My Profile
+                            Raushan Kumar
                         </Typography>
 
                         {/* menu component */}
@@ -59,7 +58,7 @@ const Header = () => {
                         sx={{ position:'absolute', top:'-78%', left:'70%' }}
                         >
                             <MenuItem onClick={handleClose}> <Link sx={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Profile</Link> </MenuItem>
-                            <MenuItem onClick={handleClose}><Link sx={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Setting</Link></MenuItem>
+                            <MenuItem onClick={handleClose}><Link sx={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} href='#'>Logout</Link></MenuItem>
                         </Menu>
                     </Box>
 
