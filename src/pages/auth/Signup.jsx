@@ -13,6 +13,7 @@ const Signup = () => {
           <TextField variant='standard' sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} type='email' name='email' label='Email' placeholder='Enter email' fullWidth required />
           <TextField variant='standard' sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} type='password' name='password' label='Password' placeholder='Enter password' fullWidth required />
           <TextField variant='standard' sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} type='password' name='cpassword' label='Confirm Password' placeholder='Enter confirm password' fullWidth required />
+          <input type="file" />
 
           <Button type='submit' color='primary' variant="contained" sx={{ margin: '10px 0' }} fullWidth>Signup</Button>
 
