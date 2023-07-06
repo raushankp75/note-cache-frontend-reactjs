@@ -7,7 +7,7 @@ const PageLayout = ({ title, children }) => {
             {title && (
                 <>
                     <Typography sx={{fontSize:'30px'}}>{title}</Typography>
-                    <hr style={{width:'100%'}} />
+                    {/* <hr style={{width:'100%'}} /> */}
                 </>
             )}
 
