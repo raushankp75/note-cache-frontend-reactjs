@@ -1,10 +1,33 @@
 import { AppBar, Box, Button, FormControl, IconButton, Menu, MenuItem, Stack, TextField, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout } from '../../redux/actions/userActions'
 
 const Header = () => {
+    // for pushing to login page
+    const navigate = useNavigate()
 
-    // for menu component
+    // for redux - use to call our actions for api
+    const dispatch = useDispatch();
+
+    // for redux - use to access our state -- userLogin is the name that is written inside the combineReducers in STORE.js
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin
+
+
+
+
+    // for logout
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/');
+    }
+    
+
+
+
+    // for menu component - start
     const [menuToggle, setMenuToggle] = useState(null)
     const open = Boolean(menuToggle)
 
@@ -15,6 +38,12 @@ const Header = () => {
     const handleClose = () => {
         setMenuToggle(null)
     }
+    // for menu component - end
+
+
+
+
+
 
     return (
         <AppBar sx={{
@@ -58,7 +87,15 @@ const Header = () => {
                             sx={{ position: 'absolute', top: '-78%', left: '70%' }}
                         >
                             <MenuItem onClick={handleClose}> <Link to='/myprofile' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Profile</Link> </MenuItem>
-                            <MenuItem onClick={handleClose}><Link to='/' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Logout</Link></MenuItem>
+                            {/* for logout */}
+                            <MenuItem onClick={() => {
+                                handleClose()
+                                handleLogout()
+                                // localStorage.removeItem('userInfo');
+                                // navigate('/');
+                            }}>
+                                Logout
+                            </MenuItem>
                         </Menu>
                     </Box>
 

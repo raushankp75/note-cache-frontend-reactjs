@@ -2,12 +2,28 @@ import React, { useEffect, useState } from 'react'
 import PageLayout from '../../layout/PageLayout'
 import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material'
 import loginSignupBg from '../../assets/login-signup-bg.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loader from '../../components/Loader'
 import ErrorMessage from '../../components/ErrorMessage'
 
+
+// for redux
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../../redux/actions/userActions'
+
+
+
 const Login = (history) => {
+
+  const navigate = useNavigate();
+
+  // for redux - use to call our actions for api
+  const dispatch = useDispatch();
+
+  // for redux - use to access our state -- userLogin is the name that is written inside the combineReducers in STORE.js
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin
 
   // login data
   const [loginData, setLoginData] = useState({
@@ -15,11 +31,11 @@ const Login = (history) => {
     password: ''
   });
 
-  // for error
-  const [error, setError] = useState(false);
+  // // for error
+  // const [error, setError] = useState(false);
 
-  // for loading
-  const [loading, setLoading] = useState(false);
+  // // for loading
+  // const [loading, setLoading] = useState(false);
 
 
 
@@ -29,30 +45,47 @@ const Login = (history) => {
   }
 
 
+
+
+  // for going to next page after login
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/mynotes')
+    }
+  }, [navigate, userInfo])
+
+
+
+
+
   // post data to the api function
   const handleLogin = async (e) => {
     e.preventDefault();
     // console.log(loginData)
 
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
+    // using redux for calling api
+    dispatch(login(loginData));
 
-      setLoading(true)
-      const { data } = await axios.post("http://localhost:8000/api/users/login", loginData, {
-        config
-      });
 
-      console.log(data)
-      localStorage.setItem('userInfo', JSON.stringify(data))
-      setLoading(false)
-    } catch (error) {
-      setError(error.response.data.message)
-      setLoading(false)
-    }
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   }
+
+    //   setLoading(true)
+    //   const { data } = await axios.post("http://localhost:8000/api/users/login", loginData, {
+    //     config
+    //   });
+
+    //   console.log(data)
+    //   localStorage.setItem('userInfo', JSON.stringify(data))
+    //   setLoading(false)
+    // } catch (error) {
+    //   setError(error.response.data.message)
+    //   setLoading(false)
+    // }
   }
 
 
