@@ -3,6 +3,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
+
+    // useEffect(() => {
+    //     const userInfo = localStorage.getItem("userInfo");
+
+    //     if(userInfo){
+    //       history.push("/mynotes")
+    //     }
+    // }, [history])
+
+
     return (
         <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', margin:'100px 0px' }}>
             <Box sx={{ display:'flex', flexDirection:'column', gap:'30px' }}>
