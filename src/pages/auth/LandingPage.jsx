@@ -21,7 +21,7 @@ const LandingPage = () => {
 
                 {/* login and signup button */}
                 <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:'30px' }}>
-                    <Button variant='contained' sx={{ padding:'10px 100px', backgroundColor:'green', color:'white', }}><Link to='/signup' style={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} >Signup</Link></Button>
+                    <Button variant='outlined' sx={{ padding:'10px 100px', color:'white', }}><Link to='/signup' style={{ color: 'black', textDecoration: 'none', fontFamily:'sans-serif' }} >Signup</Link></Button>
                     <Link to='/login' style={{ fontSize:'18px', fontFamily:'sans-serif' }} >Already have an account? Log In</Link> 
                 </Box>
             </Box>

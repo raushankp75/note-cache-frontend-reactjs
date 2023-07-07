@@ -46,7 +46,8 @@ const Header = () => {
 
 
     return (
-        <AppBar sx={{
+        <AppBar elevation={1} sx={{
+            background:'none',
             padding: {
                 xs: '0px 5px', // 0 above
                 sm: '0px 5px', // 600 above
@@ -56,15 +57,15 @@ const Header = () => {
             }
         }}>
             <Toolbar sx={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-                <IconButton sx={{ fontSize: { xs: '20px', lg: '35px' } }} edge='start' color='inherit' aria-level='logo' ><Link to='/' style={{ color: 'white', textDecoration: 'none', fontFamily: 'sans-serif' }} >Note Cache</Link></IconButton>
+                <IconButton sx={{ fontSize: { xs: '20px', lg: '35px' } }} edge='start' color='inherit' aria-level='logo' ><Link to='/' style={{ color: 'blue', textDecoration: 'none', fontFamily: 'sans-serif' }} >Note Cache</Link></IconButton>
 
 
                 <Box sx={{ display: 'flex', gap: { xs: '20px', lg: '50px' }, justifyContent: 'center', alignItems: 'center' }}>
-                    <Link to='/mynotes' style={{ color: 'white', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
+                    <Link to='/mynotes' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
 
                     <Box>
                         <Typography
-                            color='inherit'
+                            color='black'
                             id='resources-button'
                             onClick={handleClick}
                             aria-control={open ? 'resources-menu' : undefined}
