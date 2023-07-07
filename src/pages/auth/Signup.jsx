@@ -1,21 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, CardMedia, Grid, Paper, TextField, Typography } from '@mui/material'
 import loginSignupBg from '../../assets/login-signup-bg.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import profileUpload from '../../assets/profile-upload.png'
 import ErrorMessage from '../../components/ErrorMessage'
 import axios from 'axios'
 import Loader from '../../components/Loader'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { signup } from '../../redux/actions/userActions'
+
 const Signup = () => {
+
+  const navigate = useNavigate();
+
+
+  // for redux - use to call our actions for api
+  const dispatch = useDispatch();
+
+  // for redux - use to access our state -- userLogin is the name that is written inside the combineReducers in STORE.js
+  const userSignup = useSelector((state) => state.userSignup);
+  const { loading, error, userInfo } = userSignup
+
 
   // signup data
   const [signupData, setSignupData] = useState({
     name: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
+
+  // only for checking password at frontend side
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // for profile pic image
   const [pic, setPic] = useState("https://www.pngmart.com/files/22/User-Avatar-Profile-Download-PNG-Isolated-Image.png");
@@ -26,11 +42,11 @@ const Signup = () => {
   // for success message
   const [message, setMessage] = useState(null);
 
-  // for error
-  const [error, setError] = useState(false);
+  // // for error
+  // const [error, setError] = useState(false);
 
-  // for loading
-  const [loading, setLoading] = useState(false);
+  // // for loading
+  // const [loading, setLoading] = useState(false);
 
 
 
@@ -41,51 +57,21 @@ const Signup = () => {
 
 
 
-  const handleSignup = async (e) => {
-    e.preventDefault()
-    console.log(signupData)
-    console.log(pic)
-
-    if (signupData.password !== signupData.confirmPassword) {
-      setMessage('Password and Confirm password do not match')
-    } else {
-      setError(null)
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-
-        setLoading(true)
-        const { data } = await axios.post("http://localhost:8000/api/users", signupData, {
-          config
-        });
-        // setMessage('Signup successfully!')
-        console.log(data)
-        setLoading(false)
-      } catch (error) {
-        setError(error.response.data.message)
-        setLoading(false)
-      }
-
-    }
-  }
 
 
 
   // posting pic to cloudinary
-  const postDetails = (image) => {
+  const postDetails = (pics) => {
     // setPicMessage(null)
 
-    if (!image) {
+    if (!pics) {
       return setPicMessage("Please select an image");
     }
     setPicMessage(null);
 
-    if (image.type === 'image/jpeg' || image.type === 'image/png') {
+    if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
       const data = new FormData();
-      data.append('file', image)
+      data.append('file', pics)
       data.append('upload_preset', 'notecache')
       data.append('cloud_name', 'raushancloud')
 
@@ -104,10 +90,70 @@ const Signup = () => {
           setPic(data.url.toString());
         })
         .catch(err => console.log(err))
-    }else{
+    } else {
       return setPicMessage('Please select an image');
     }
   }
+
+
+
+
+
+  // for going to next page after login
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/login')
+    }
+  }, [navigate, userInfo])
+
+
+
+
+
+  const handleSignup = async (e) => {
+    e.preventDefault()
+    // console.log(signupData)
+    // console.log(pic)
+
+
+    // Using redux for signup
+    if (signupData.password !== confirmPassword) {
+      setMessage('Password and Confirm password do not match')
+    } else {
+      dispatch(signup(signupData, pic));
+    }
+
+
+
+
+    // if (signupData.password !== signupData.confirmPassword) {
+    //   setMessage('Password and Confirm password do not match')
+    // } else {
+    //   setError(null)
+    //   try {
+    //     const config = {
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       }
+    //     }
+
+    //     setLoading(true)
+    //     const { data } = await axios.post("http://localhost:8000/api/users", signupData, {
+    //       config
+    //     });
+    //     // setMessage('Signup successfully!')
+    //     console.log(data)
+    //     setLoading(false)
+    //   } catch (error) {
+    //     setError(error.response.data.message)
+    //     setLoading(false)
+    //   }
+    // }
+  }
+
+
+
+
 
 
 
@@ -134,7 +180,7 @@ const Signup = () => {
           <TextField variant='standard' type='name' name='name' value={signupData.name} onChange={handleValueChange} sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} label='Name' placeholder='Enter name' fullWidth required />
           <TextField variant='standard' type='email' name='email' value={signupData.email} onChange={handleValueChange} sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} label='Email' placeholder='Enter email' fullWidth required />
           <TextField variant='standard' type='password' name='password' value={signupData.password} onChange={handleValueChange} sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} label='Password' placeholder='Enter password' fullWidth required />
-          <TextField variant='standard' type='password' name='confirmPassword' value={signupData.confirmPassword} onChange={handleValueChange} sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} label='Confirm Password' placeholder='Enter confirm password' fullWidth required />
+          <TextField variant='standard' type='password' name='confirmPassword' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} sx={{ margin: '10px 0', borderBottom: '2px solid blue' }} label='Confirm Password' placeholder='Enter confirm password' fullWidth required />
 
           {/* For select and upload and show image */}
           {picMessage && (
@@ -155,6 +201,8 @@ const Signup = () => {
                 id='output'
               />
               <input
+                id='pic'
+                name='pic'
                 type="file"
                 hidden
                 accept='image/*'
