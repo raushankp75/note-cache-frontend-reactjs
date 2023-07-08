@@ -88,9 +88,7 @@ const MyNotes = () => {
             {popup && <SingleNote popup={setPopup} />}
 
 
-            <Link to='/createnote' style={{ marginTop: '30px', display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button variant='outlined' sx={{ backgroundColor: 'cyan' }}>Create Note</Button>
-            </Link>
+            <Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', marginLeft:'auto', textDecoration:"none", padding:'10px 20px' }}>Create Note</Link>
 
 
             {/* map notes */}

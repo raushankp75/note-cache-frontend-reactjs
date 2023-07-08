@@ -61,7 +61,7 @@ export const createNote = (notesData) => async (dispatch, getState) => {
 
 
         // Calling api
-        const { data } = await axios.get(
+        const { data } = await axios.post(
             "http://localhost:8000/api/notes/create",
             notesData,
             config
