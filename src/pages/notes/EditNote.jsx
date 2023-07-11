@@ -45,7 +45,7 @@ const EditNote = () => {
 
 
 
-  // Getting user data from api
+  // Getting notes data from api
   useEffect(() => {
     const fetchingNote = async () => {
       const { data } = await axios.get(`http://localhost:8000/api/notes/${id}`,);

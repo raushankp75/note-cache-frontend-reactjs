@@ -53,8 +53,8 @@ const MyNotes = () => {
 
     // const [notes, setNotes] = useState([]);
 
-    // for single note 
-    const [popup, setPopup] = useState(false)
+    // // for single note 
+    // const [popup, setPopup] = useState(false)
 
 
 
@@ -83,10 +83,10 @@ const MyNotes = () => {
 
 
 
-    // handle popup - for single note
-    const handlePopup = (id) => {
-        setPopup(true)
-    }
+    // // handle popup - for single note
+    // const handlePopup = (id) => {
+    //     setPopup(true)
+    // }
 
 
 
@@ -106,24 +106,25 @@ const MyNotes = () => {
         <PageLayout title='Welcome Write notes...'>
 
             {/* for single note */}
-            {popup && <SingleNote popup={setPopup} />}
+            {/* {popup && <SingleNote popup={setPopup} />} */}
 
 
             <Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', marginLeft: 'auto', textDecoration: "none", padding: '10px 20px' }}>Create Note</Link>
 
 
             {/* map notes */}
-            {errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>}
+            {/* {errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>} */}
             {error && <ErrorMessage severity="error">{error}</ErrorMessage>}
             <Grid item xs={12} container spacing={4} sx={{ marginTop: '1px' }}>
-                {loadingDelete && <Loading />}
+                {/* {loadingDelete && <Loading />} */}
                 {loading && <Loading />}
                 {
                     notes?.slice(0).reverse().map((note) => (
                         <Grid item lg={4} sm={6} xs={12} sx={{ cursor: 'pointer' }} key={note._id}>
                             {/* <Link to={`/note/${note._id}`} style={{ textDecoration: 'none' }}> */}
                             <Paper sx={{ padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} elevation={4}>
-                                <Typography onClick={() => { handlePopup(note._id) }} sx={{ fontSize: '18px' }}>{note.title}</Typography>
+                                {/* <Typography onClick={() => { handlePopup(note._id) }} sx={{ fontSize: '18px' }}>{note.title}</Typography> */}
+                                <Link to={`/singlenote/${note._id}`} sx={{ fontSize: '18px', textDecoration:'none' }}>{note.title}</Link>
 
                                 {/* edit and delete button */}
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>

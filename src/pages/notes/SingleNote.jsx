@@ -1,13 +1,39 @@
 import { Badge, Box, Button, Card, Paper, Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { GrFormClose } from 'react-icons/gr'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
-const SingleNote = ({ popup }) => {
+const SingleNote = () => {
 
-    const { id } = useParams();
+    const { id } = useParams()
+    console.log(id)
+
+
+    const navigate = useNavigate()
+
+
+    const [singleNote, setSingleNote] = useState()
+    const [date, setDate] = useState()
+
+
+    // Getting notes data from api
+    useEffect(() => {
+        const fetchingNote = async () => {
+            const { data } = await axios.get(`http://localhost:8000/api/notes/${id}`,);
+
+            setSingleNote([data])
+            console.log(54, singleNote);
+            setDate(data.updatedAt);
+        };
+
+        fetchingNote();
+    }, [id, date]);
+
+
+
 
 
     return (
@@ -17,19 +43,27 @@ const SingleNote = ({ popup }) => {
             <Box sx={{ position: 'fixed', width: { xs: '87vw', lg: '70vw' }, maxHeight: '70vh', top: '15%', left: { xs: '5%', lg: '15%' }, zIndex: '1000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Paper sx={{ padding: '20px' }} elevation={4}>
                     <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                        <Button onClick={() => popup(false)} sx={{}}><GrFormClose size={40} /></Button>
+                        {/* <Button onClick={() => popup(false)} sx={{}}><GrFormClose size={40} /></Button> */}
+                        <Button onClick={() => navigate(-1)}><GrFormClose size={40} /></Button>
                     </Box>
 
 
                     {/* map single note */}
-                    {/* {
-                        notes.map((note, index) => (
-                            <Typography>{note.content}</Typography>
-                            ))
-                        } */}
+                    {
+                        singleNote.map((note) => {
+                            return (
+                                <Box key={id}>
+                                <Typography>{note.title}</Typography>
+                                <Typography>{note.content}</Typography>
+                                <Badge>{note.category}</Badge>
+                            </Box>
+                            )
+                        })
+                    }
 
-                    <Badge>Category</Badge>
-                    <Typography>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, officia?</Typography>
+                    {/* {singleNote.title} */}
+
+
 
                 </Paper>
 
