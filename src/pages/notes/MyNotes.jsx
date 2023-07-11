@@ -12,7 +12,7 @@ import axios from 'axios'
 
 // for redux
 import { useDispatch, useSelector } from 'react-redux'
-import { allNotes } from '../../redux/actions/notesActions'
+import { allNotes, deleteNoteAction } from '../../redux/actions/notesActions'
 
 import Loading from '../../components/Loading'
 import ErrorMessage from '../../components/ErrorMessage'
@@ -29,9 +29,24 @@ const MyNotes = () => {
     const { loading, notes, error } = notesList;
 
 
-    // for getting lofin info
+    // for getting lofin info - render login user info
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin;
+
+
+    // here notCreate name in the store - after create render data
+    const noteCreate = useSelector((state) => state.noteCreate);
+    const { success: successCreate } = noteCreate;
+
+
+    // here notCreate name in the store - after update render data
+    const noteUpdate = useSelector((state) => state.noteUpdate);
+    const { success: successUpdate } = noteUpdate;
+
+
+    // For delete the notes
+    const noteDelete = useSelector((state) => state.noteDelete);
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = noteDelete;
 
 
 
@@ -56,13 +71,14 @@ const MyNotes = () => {
     useEffect(() => {
         dispatch(allNotes())
 
-         // navigating to this after logout
-         if(!userInfo){
+        // navigating to this after logout
+        if (!userInfo) {
             navigate('/')
-         }
+        }
 
         // fetchNotes()
-    }, [dispatch]);
+    }, [dispatch, successCreate, navigate, userInfo, successUpdate, successDelete]);
+
 
 
 
@@ -73,12 +89,17 @@ const MyNotes = () => {
     }
 
 
+
+
     // delete function - for delete
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure to delete?')) {
-
+            dispatch(deleteNoteAction(id));
         }
     }
+
+
+
 
 
     return (
@@ -88,32 +109,32 @@ const MyNotes = () => {
             {popup && <SingleNote popup={setPopup} />}
 
 
-            <Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', marginLeft:'auto', textDecoration:"none", padding:'10px 20px' }}>Create Note</Link>
+            <Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', marginLeft: 'auto', textDecoration: "none", padding: '10px 20px' }}>Create Note</Link>
 
 
             {/* map notes */}
+            {errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>}
             {error && <ErrorMessage severity="error">{error}</ErrorMessage>}
             <Grid item xs={12} container spacing={4} sx={{ marginTop: '1px' }}>
+                {loadingDelete && <Loading />}
                 {loading && <Loading />}
                 {
-                    notes?.map((note, index) => (
-                        <Grid item lg={4} sm={6} xs={12} sx={{ cursor: 'pointer' }} key={index}>
+                    notes?.slice(0).reverse().map((note) => (
+                        <Grid item lg={4} sm={6} xs={12} sx={{ cursor: 'pointer' }} key={note._id}>
                             {/* <Link to={`/note/${note._id}`} style={{ textDecoration: 'none' }}> */}
-                            <Link onClick={() => { handlePopup(note._id) }} style={{ textDecoration: 'none' }}>
-                                <Paper sx={{ padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} elevation={4}>
-                                    <Typography sx={{ fontSize: '18px' }}>{note.title}</Typography>
+                            <Paper sx={{ padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} elevation={4}>
+                                <Typography onClick={() => { handlePopup(note._id) }} sx={{ fontSize: '18px' }}>{note.title}</Typography>
 
-                                    {/* edit and delete button */}
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                                        <Link to={`/editnote/${note._id}`}>
-                                            <AiFillEdit color='green' size={27} />
-                                        </Link>
-                                        <Typography onClick={() => deleteHandler(note._id)}>
-                                            <AiFillDelete color='red' size={27} />
-                                        </Typography>
-                                    </Box>
-                                </Paper>
-                            </Link>
+                                {/* edit and delete button */}
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                                    <Link to={`/editnote/${note._id}`}>
+                                        <AiFillEdit color='green' size={27} />
+                                    </Link>
+                                    <Typography onClick={() => deleteHandler(note._id)}>
+                                        <AiFillDelete color='red' size={27} />
+                                    </Typography>
+                                </Box>
+                            </Paper>
                         </Grid>
                     ))
                 }

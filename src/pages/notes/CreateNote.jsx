@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // for redux
 import { useDispatch, useSelector } from 'react-redux';
-import { createNote } from '../../redux/actions/notesActions';
+import { createNoteAction } from '../../redux/actions/notesActions';
 
 const CreateNote = () => {
 
@@ -55,8 +55,8 @@ const CreateNote = () => {
     console.log(createNotesData)
 
     // here createNote name in the noteActions
-    dispatch(createNote(createNotesData));
     if(!createNotesData.title || !createNotesData.content || !createNotesData.category) return;
+    dispatch(createNoteAction(createNotesData));
 
     handleReset();
 
