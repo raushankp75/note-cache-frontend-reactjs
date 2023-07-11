@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PageLayout from '../../layout/PageLayout'
 import { Link, useNavigate } from 'react-router-dom'
-import { Box, Button, Grid, Paper, Typography } from '@mui/material'
+import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material'
 // import notes from '../../data/notes'
 
 import { AiFillDelete } from 'react-icons/ai'
@@ -20,6 +20,7 @@ import ErrorMessage from '../../components/ErrorMessage'
 
 
 const MyNotes = () => {
+    const [search, setSearch] = useState("")
 
     const navigate = useNavigate();
 
@@ -103,28 +104,40 @@ const MyNotes = () => {
 
 
     return (
-        <PageLayout title='Welcome Write notes...'>
+        <PageLayout>
+
+            <Typography sx={{ fontSize: '22px' }}>Welcome <span style={{ color: 'blue', borderBottom: '1px solid red' }}>{userInfo.name}</span> to My Notes</Typography>
 
             {/* for single note */}
             {/* {popup && <SingleNote popup={setPopup} />} */}
 
 
-            <Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', marginLeft: 'auto', textDecoration: "none", padding: '10px 20px' }}>Create Note</Link>
+
+            <Box display='flex' justifyContent='space-between' margin='20px 0px'>
+                <TextField
+                    variant='outlined'
+                    placeholder='Search...'
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <Button><Link to='/createnote' variant='outlined' style={{ backgroundColor: 'cyan', textDecoration: "none", padding: '10px 20px' }}>Create Note</Link></Button>
+            </Box>
 
 
             {/* map notes */}
             {/* {errorDelete && <ErrorMessage severity="error">{errorDelete}</ErrorMessage>} */}
             {error && <ErrorMessage severity="error">{error}</ErrorMessage>}
-            <Grid item xs={12} container spacing={4} sx={{ marginTop: '1px' }}>
+            <Grid item xs={12} container spacing={4}>
                 {/* {loadingDelete && <Loading />} */}
                 {loading && <Loading />}
                 {
-                    notes?.slice(0).reverse().map((note) => (
+                    notes?.slice(0).reverse().filter((filteredNote) => 
+                        filteredNote.title.toLowerCase().includes(search.toLowerCase())
+                    ).map((note) => (
                         <Grid item lg={4} sm={6} xs={12} sx={{ cursor: 'pointer' }} key={note._id}>
                             {/* <Link to={`/note/${note._id}`} style={{ textDecoration: 'none' }}> */}
                             <Paper sx={{ padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} elevation={4}>
                                 {/* <Typography onClick={() => { handlePopup(note._id) }} sx={{ fontSize: '18px' }}>{note.title}</Typography> */}
-                                <Link to={`/singlenote/${note._id}`} sx={{ fontSize: '18px', textDecoration:'none' }}>{note.title}</Link>
+                                <Link to={`/singlenote/${note._id}`} sx={{ fontSize: '18px', textDecoration: 'none' }}>{note.title}</Link>
 
                                 {/* edit and delete button */}
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>

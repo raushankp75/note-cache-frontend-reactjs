@@ -7,6 +7,7 @@ import Signup from './pages/auth/Signup'
 import SingleNote from './pages/notes/SingleNote'
 import EditNote from './pages/notes/EditNote'
 import CreateNote from './pages/notes/CreateNote'
+import { useState } from 'react'
 
 function App() {
 

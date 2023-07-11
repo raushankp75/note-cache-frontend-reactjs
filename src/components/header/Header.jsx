@@ -58,7 +58,7 @@ const Header = () => {
         }}>
             <Toolbar sx={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
                 <IconButton sx={{ fontSize: { xs: '20px', lg: '35px' } }} edge='start' color='inherit' aria-level='logo' ><Link to='/' style={{ color: 'blue', textDecoration: 'none', fontFamily: 'sans-serif' }} >Note Cache</Link></IconButton>
-
+              
 
                 <Box sx={{ display: 'flex', gap: { xs: '20px', lg: '50px' }, justifyContent: 'center', alignItems: 'center' }}>
                     <Link to='/mynotes' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
