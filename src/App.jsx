@@ -8,6 +8,7 @@ import SingleNote from './pages/notes/SingleNote'
 import EditNote from './pages/notes/EditNote'
 import CreateNote from './pages/notes/CreateNote'
 import { useState } from 'react'
+import MyProfile from './pages/user/MyProfile'
 
 function App() {
 
@@ -22,6 +23,8 @@ function App() {
           <Route path='/singlenote/:id' element={<SingleNote />} />
           <Route path='/editnote/:id' element={<EditNote />} />
           <Route path='/createnote' element={<CreateNote />} />
+
+          <Route path='/profile' element={<MyProfile />} />
         </Routes>
       </MainLayout>
     </>

@@ -15,7 +15,7 @@ const SingleNote = () => {
     const navigate = useNavigate()
 
 
-    const [singleNote, setSingleNote] = useState()
+    const [singleNote, setSingleNote] = useState("")
     const [date, setDate] = useState()
 
 
@@ -24,8 +24,8 @@ const SingleNote = () => {
         const fetchingNote = async () => {
             const { data } = await axios.get(`http://localhost:8000/api/notes/${id}`,);
 
-            setSingleNote([data])
-            console.log(54, singleNote);
+            setSingleNote(data)
+            console.log(28, singleNote);
             setDate(data.updatedAt);
         };
 
@@ -49,17 +49,17 @@ const SingleNote = () => {
 
 
                     {/* map single note */}
-                    {
+                    {/* {
                         singleNote.map((note) => {
-                            return (
-                                <Box key={id}>
-                                <Typography>{note.title}</Typography>
-                                <Typography>{note.content}</Typography>
-                                <Badge>{note.category}</Badge>
-                            </Box>
-                            )
+                            return ( */}
+                    <Box >
+                        <Typography>{singleNote.title}</Typography>
+                        <Typography>{singleNote.content}</Typography>
+                        <Badge>{singleNote.category}</Badge>
+                    </Box>
+                    {/* )
                         })
-                    }
+                    } */}
 
                     {/* {singleNote.title} */}
 

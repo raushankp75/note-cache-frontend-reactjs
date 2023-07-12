@@ -23,7 +23,7 @@ const Header = () => {
         dispatch(logout());
         navigate('/');
     }
-    
+
 
 
 
@@ -47,7 +47,7 @@ const Header = () => {
 
     return (
         <AppBar elevation={1} sx={{
-            background:'none',
+            background: 'none',
             padding: {
                 xs: '0px 5px', // 0 above
                 sm: '0px 5px', // 600 above
@@ -58,49 +58,51 @@ const Header = () => {
         }}>
             <Toolbar sx={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
                 <IconButton sx={{ fontSize: { xs: '20px', lg: '35px' } }} edge='start' color='inherit' aria-level='logo' ><Link to='/' style={{ color: 'blue', textDecoration: 'none', fontFamily: 'sans-serif' }} >Note Cache</Link></IconButton>
-              
 
-                <Box sx={{ display: 'flex', gap: { xs: '20px', lg: '50px' }, justifyContent: 'center', alignItems: 'center' }}>
-                    <Link to='/mynotes' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
 
-                    <Box>
-                        <Typography
-                            color='black'
-                            id='resources-button'
-                            onClick={handleClick}
-                            aria-control={open ? 'resources-menu' : undefined}
-                            aria-haspopup='true'
-                            aria-expanded={open ? 'true' : undefined}
-                            sx={{ position: 'relative', cursor: 'pointer' }}
-                        >
-                            Raushan Kumar
-                        </Typography>
+                {userInfo &&
+                    <Box sx={{ display: 'flex', gap: { xs: '20px', lg: '50px' }, justifyContent: 'center', alignItems: 'center' }}>
+                        <Link to='/mynotes' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >My Notes</Link>
 
-                        {/* menu component */}
-                        <Menu
-                            id='resources-menu'
-                            menuToggle={menuToggle}
-                            open={open}
-                            MenuListProps={{
-                                'aria-labelledby': 'resources-button'
-                            }}
-                            onClose={handleClose}
-                            sx={{ position: 'absolute', top: '-78%', left: '70%' }}
-                        >
-                            <MenuItem onClick={handleClose}> <Link to='/myprofile' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Profile</Link> </MenuItem>
-                            {/* for logout */}
-                            <MenuItem onClick={() => {
-                                handleClose()
-                                handleLogout()
-                                // localStorage.removeItem('userInfo');
-                                // navigate('/');
-                            }}>
-                                Logout
-                            </MenuItem>
-                        </Menu>
+                        <Box>
+                            <Typography
+                                color='black'
+                                id='resources-button'
+                                onClick={handleClick}
+                                aria-control={open ? 'resources-menu' : undefined}
+                                aria-haspopup='true'
+                                aria-expanded={open ? 'true' : undefined}
+                                sx={{ position: 'relative', cursor: 'pointer' }}
+                            >
+                                {userInfo.name}
+                            </Typography>
+
+                            {/* menu component */}
+                            <Menu
+                                id='resources-menu'
+                                menuToggle={menuToggle}
+                                open={open}
+                                MenuListProps={{
+                                    'aria-labelledby': 'resources-button'
+                                }}
+                                onClose={handleClose}
+                                sx={{ position: 'absolute', top: '-78%', left: '70%' }}
+                            >
+                                <MenuItem onClick={handleClose}> <Link to='/profile' style={{ color: 'black', textDecoration: 'none', fontFamily: 'sans-serif' }} >Profile</Link> </MenuItem>
+                                {/* for logout */}
+                                <MenuItem onClick={() => {
+                                    handleClose()
+                                    handleLogout()
+                                    // localStorage.removeItem('userInfo');
+                                    // navigate('/');
+                                }}>
+                                    Logout
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+
                     </Box>
-
-                </Box>
+                }
 
 
 
